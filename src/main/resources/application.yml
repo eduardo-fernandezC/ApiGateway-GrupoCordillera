@@ -1,0 +1,44 @@
+server:
+  port: 9000
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      server:
+        webmvc:
+          use-framework-retry-filter: true
+          routes:
+            - id: kpi-service
+              uri: ${KPI_SERVICE_URI:http://localhost:8092}
+              predicates:
+                - Path=/api/kpi/**
+              filters:
+                - StripPrefix=2
+                - Retry=2
+
+            - id: data-service
+              uri: ${DATA_SERVICE_URI:http://localhost:8090}
+              predicates:
+                - Path=/api/data/**
+              filters:
+                - StripPrefix=2
+                - Retry=2
+
+            - id: dashboard-service
+              uri: ${DASHBOARD_SERVICE_URI:http://localhost:8093}
+              predicates:
+                - Path=/api/dashboard/**
+              filters:
+                - StripPrefix=2
+                - Retry=2
+
+            - id: core-service
+              uri: ${CORESERVICE_URI:http://localhost:8091}
+              predicates:
+                - Path=/api/core/**
+              filters:
+                - StripPrefix=2
+                - Retry=2
