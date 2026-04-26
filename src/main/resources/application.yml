@@ -12,7 +12,7 @@ spring:
           use-framework-retry-filter: true
           routes:
             - id: kpi-service
-              uri: ${KPI_SERVICE_URI:http://localhost:8092}
+              uri: ${KPI_SERVICE_URI}
               predicates:
                 - Path=/api/kpi/**
               filters:
@@ -20,7 +20,7 @@ spring:
                 - Retry=2
 
             - id: data-service
-              uri: ${DATA_SERVICE_URI:http://localhost:8090}
+              uri: ${DATA_SERVICE_URI}
               predicates:
                 - Path=/api/data/**
               filters:
@@ -28,7 +28,7 @@ spring:
                 - Retry=2
 
             - id: dashboard-service
-              uri: ${DASHBOARD_SERVICE_URI:http://localhost:8093}
+              uri: ${DASHBOARD_SERVICE_URI}
               predicates:
                 - Path=/api/dashboard/**
               filters:
@@ -36,9 +36,14 @@ spring:
                 - Retry=2
 
             - id: core-service
-              uri: ${CORESERVICE_URI:http://localhost:8091}
+              uri: ${CORESERVICE_URI}
               predicates:
                 - Path=/api/core/**
               filters:
                 - StripPrefix=2
                 - Retry=2
+security:
+  oauth2:
+    resourceserver:
+      jwt:
+        issuer-uri: ${OAUTH2_ISSUER_URI}
