@@ -4,6 +4,13 @@ server:
 spring:
   application:
     name: api-gateway
+  config:
+    import: optional:file:.env[.properties]
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${OAUTH2_ISSUER_URI:https://dev-bphtbl2abtrdlqe1.us.auth0.com/}
 
   cloud:
     gateway:
@@ -42,3 +49,11 @@ spring:
               filters:
                 - StripPrefix=2
                 - Retry=2
+
+auth0:
+  audience: ${OAUTH2_AUDIENCE:https://grupo-cordillera-api}
+  roles-claim: ${AUTH0_ROLES_CLAIM:https://grupo-cordillera-api/roles}
+
+app:
+  cors:
+    allowed-origin: ${FRONTEND_ORIGIN:http://localhost:3000}
