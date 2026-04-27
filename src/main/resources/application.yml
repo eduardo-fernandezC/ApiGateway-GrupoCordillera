@@ -4,6 +4,13 @@ server:
 spring:
   application:
     name: api-gateway
+  config:
+    import: optional:file:.env[.properties]
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${OAUTH2_ISSUER_URI:https://dev-bphtbl2abtrdlqe1.us.auth0.com/}
 
   cloud:
     gateway:
@@ -12,7 +19,7 @@ spring:
           use-framework-retry-filter: true
           routes:
             - id: kpi-service
-              uri: ${KPI_SERVICE_URI}
+              uri: ${KPI_SERVICE_URI:http://localhost:8092}
               predicates:
                 - Path=/api/kpi/**
               filters:
@@ -20,7 +27,7 @@ spring:
                 - Retry=2
 
             - id: data-service
-              uri: ${DATA_SERVICE_URI}
+              uri: ${DATA_SERVICE_URI:http://localhost:8090}
               predicates:
                 - Path=/api/data/**
               filters:
@@ -28,7 +35,7 @@ spring:
                 - Retry=2
 
             - id: dashboard-service
-              uri: ${DASHBOARD_SERVICE_URI}
+              uri: ${DASHBOARD_SERVICE_URI:http://localhost:8093}
               predicates:
                 - Path=/api/dashboard/**
               filters:
@@ -36,15 +43,17 @@ spring:
                 - Retry=2
 
             - id: core-service
-              uri: ${CORESERVICE_URI}
+              uri: ${CORESERVICE_URI:http://localhost:8091}
               predicates:
                 - Path=/api/core/**
               filters:
                 - StripPrefix=2
                 - Retry=2
 
-security:
-  oauth2:
-    resourceserver:
-      jwt:
-        issuer-uri: ${OAUTH2_ISSUER_URI}
+auth0:
+  audience: ${OAUTH2_AUDIENCE:https://grupo-cordillera-api}
+  roles-claim: ${AUTH0_ROLES_CLAIM:https://grupo-cordillera-api/roles}
+
+app:
+  cors:
+    allowed-origin: ${FRONTEND_ORIGIN:http://localhost:3000}
