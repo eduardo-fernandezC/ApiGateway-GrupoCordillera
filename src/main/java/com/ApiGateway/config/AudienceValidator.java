@@ -17,16 +17,15 @@ public class AudienceValidator implements OAuth2TokenValidator<Jwt> {
 
     @Override
     public OAuth2TokenValidatorResult validate(Jwt jwt) {
-        List<String> tokenAudiences = jwt.getAudience();
 
-        if (tokenAudiences != null && tokenAudiences.contains(audience)) {
+        List<String> audiences = jwt.getAudience();
+
+        if (audiences.contains(audience)) {
             return OAuth2TokenValidatorResult.success();
         }
 
         return OAuth2TokenValidatorResult.failure(
-                new OAuth2Error(
-                        "invalid_token",
-                        "The required audience is missing from the access token.",
-                        null));
+            new OAuth2Error("invalid_token", "Invalid audience", null)
+        );
     }
 }
