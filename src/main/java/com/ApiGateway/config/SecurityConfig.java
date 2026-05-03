@@ -16,22 +16,23 @@ import org.springframework.security.oauth2.server.resource.authentication.*;
 
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
-
-import org.springframework.web.cors.*;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 public class SecurityConfig {
 
-    @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
+    @Value("${OAUTH2_ISSUER_URI}")
     private String issuerUri;
 
-    @Value("${auth0.audience}")
+    @Value("${OAUTH2_AUDIENCE}")
     private String audience;
 
-    @Value("${auth0.roles-claim}")
+    @Value("${AUTH0_ROLES_CLAIM}")
     private String rolesClaim;
 
-    @Value("${app.cors.allowed-origin}")
+    @Value("${FRONTEND_ORIGIN}")
     private String allowedOrigin;
 
     @Bean

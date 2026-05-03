@@ -1,5 +1,5 @@
 server:
-  port: 9000
+  port: ${API_GATEWAY_PORT:9000}
 
 spring:
   application:
@@ -49,11 +49,21 @@ spring:
               filters:
                 - StripPrefix=2
                 - Retry=2
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - ${FRONTEND_ORIGIN}
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
 
 auth0:
   audience: ${OAUTH2_AUDIENCE}
   roles-claim: ${AUTH0_ROLES_CLAIM}
-
-app:
-  cors:
-    allowed-origin: ${FRONTEND_ORIGIN}
