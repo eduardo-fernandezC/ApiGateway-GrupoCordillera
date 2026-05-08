@@ -1,12 +1,10 @@
 server:
-  port: ${API_GATEWAY_PORT:9000}
+  port: 9000
 
 spring:
+
   application:
     name: api-gateway
-
-  config:
-    import: optional:file:.env[.properties]
 
   security:
     oauth2:
@@ -18,9 +16,9 @@ spring:
     gateway:
       server:
         webmvc:
-          use-framework-retry-filter: false
 
           routes:
+
             - id: kpi-service
               uri: ${KPI_SERVICE_URI}
               predicates:
@@ -45,8 +43,10 @@ spring:
       globalcors:
         corsConfigurations:
           '[/**]':
+
             allowedOrigins:
               - ${FRONTEND_ORIGIN}
+
             allowedMethods:
               - GET
               - POST
@@ -54,8 +54,10 @@ spring:
               - PATCH
               - DELETE
               - OPTIONS
+
             allowedHeaders:
               - "*"
+
             allowCredentials: true
 
 auth0:
