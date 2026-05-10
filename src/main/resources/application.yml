@@ -16,7 +16,6 @@ spring:
     gateway:
       server:
         webmvc:
-
           routes:
 
             - id: kpi-service
