@@ -48,5 +48,3 @@ Notas
 Recursos
 - Archivo de configuración: [src/main/resources/application.yml](src/main/resources/application.yml)
 
-¿Necesitas que añada ejemplos de `docker-compose` o plantillas de variables de entorno (`.env`)?
-
