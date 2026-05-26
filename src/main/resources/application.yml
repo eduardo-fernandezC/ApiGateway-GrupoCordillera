@@ -39,6 +39,11 @@ spring:
               filters:
                 - StripPrefix=2
 
+            - id: auth-service
+              uri: ${AUTH_SERVICE_URI}
+              predicates:
+                - Path=/api/users/**
+
       globalcors:
         corsConfigurations:
           '[/**]':
