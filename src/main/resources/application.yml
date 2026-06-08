@@ -64,6 +64,14 @@ spring:
 
             allowCredentials: true
 
+resilience4j:
+  ratelimiter:
+    instances:
+      gatewayLimiter:
+        limit-for-period: 100
+        limit-refresh-period: 1m
+        timeout-duration: 0
+
 auth0:
   audience: ${OAUTH2_AUDIENCE}
   roles-claim: ${AUTH0_ROLES_CLAIM}
