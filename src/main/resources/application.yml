@@ -75,3 +75,12 @@ resilience4j:
 auth0:
   audience: ${OAUTH2_AUDIENCE}
   roles-claim: ${AUTH0_ROLES_CLAIM}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
