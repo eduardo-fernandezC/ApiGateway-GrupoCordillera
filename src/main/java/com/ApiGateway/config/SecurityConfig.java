@@ -46,17 +46,14 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
 
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .requestMatchers("/actuator/health").permitAll()
                 .requestMatchers("/public/**").permitAll()
-
                 .requestMatchers("/api/kpi/**")
                     .hasAnyRole("ADMIN", "ANALISTA")
-
                 .requestMatchers("/api/core/**")
                     .hasRole("ADMIN")
-
                 .requestMatchers("/api/data/**")
                     .hasRole("ADMIN")
-
                 .anyRequest().authenticated()
             )
 
